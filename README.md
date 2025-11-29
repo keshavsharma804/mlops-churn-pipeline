@@ -1,9 +1,3 @@
-Here is a **professional, over-exaggerated, highly polished README** perfect for LinkedIn, recruiters, and GitHub ⭐🔥
-
-Just copy-paste **this entire README.md** into your repo.
-
----
-
 # 🚀 MLOps Churn Prediction Pipeline
 
 ### **Production-Ready | Auto-Retraining | Monitoring Dashboard | Full CI/CD | Dockerized | FastAPI + Streamlit + PostgreSQL + Cron**
