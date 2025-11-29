@@ -1,0 +1,1 @@
+* * * * * root python /app/src/retraining/retrain.py >> /var/log/retrain.log 2>&1

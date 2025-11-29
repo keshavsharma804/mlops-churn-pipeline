@@ -1,0 +1,65 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend.Dockerfile
+    container_name: churn_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/app/models
+      - ./monitoring:/app/monitoring
+    environment:
+      - API_KEY=user1234key
+      - ADMIN_API_KEY=admin9999key
+      - USER_API_KEY=user1234key
+    depends_on:
+      - db
+
+  ui:
+    build:
+      context: .
+      dockerfile: docker/ui.Dockerfile
+    container_name: churn_ui
+    ports:
+      - "8501:8501"
+    depends_on:
+      - backend
+
+  db:
+    image: postgres:15
+    container_name: churn_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: churn_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  retrainer:
+    build:
+      context: .
+      dockerfile: docker/retrainer.Dockerfile
+    container_name: churn_retrainer
+    restart: always
+    depends_on:
+      - backend
+      - db
+    volumes:
+      - ./models:/app/models
+      - ./monitoring:/app/monitoring
+      - ./data:/app/data
+
+volumes:
+  pgdata:

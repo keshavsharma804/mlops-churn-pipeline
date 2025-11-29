@@ -1,0 +1,28 @@
+experiment_name: "churn_mlops_pipeline"
+
+data:
+  raw_path: "data/raw/churn.csv"
+  processed_path: "data/processed/churn_processed.csv"
+  target_column: "churn"
+
+database:
+  host: churn_db
+  port: 5432
+  user: postgres
+  password: postgres
+  name: churn
+
+model:
+  dir: models
+  file_prefix: churn_pipeline
+
+monitoring:
+  table: predictions
+
+
+training:
+  test_size: 0.2
+  random_state: 42
+
+paths:
+  model_output_dir: "models"
